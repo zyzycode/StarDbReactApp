@@ -7,7 +7,7 @@ import RandomPlanet from '../random-planet';
 import PeoplePage from '../people-page';
 import ErrorIndicator from "../error-indicator";
 import ItemList from "../item-list";
-import PersonDetails from "../person-details";
+import ItemDetails from "../item-details";
 import SwapiService from "../../services/swapi-service";
 
 export default class App extends Component {
@@ -52,7 +52,7 @@ export default class App extends Component {
                     onClick={this.toggleRandomPlanet}>
                     Toggle Random Planet
                 </button>
-                <PeoplePage />
+                <PeoplePage/>
 
                 <div className="row mb2 mt-2">
                     <div className="col-md-6">
@@ -63,7 +63,7 @@ export default class App extends Component {
                         />
                     </div>
                     <div className="col-md-6">
-                        <PersonDetails personId={this.state.selectedPerson} />
+                        <ItemDetails personId={this.state.selectedPerson} />
                     </div>
                 </div>
 
@@ -76,7 +76,7 @@ export default class App extends Component {
                         />
                     </div>
                     <div className="col-md-6">
-                        <PersonDetails personId={this.state.selectedPerson} />
+                        <ItemDetails personId={this.state.selectedPerson} />
                     </div>
                 </div>
 
