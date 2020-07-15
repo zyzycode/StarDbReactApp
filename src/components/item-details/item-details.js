@@ -25,21 +25,15 @@ export default class ItemDetails extends Component {
 
     componentDidMount() {
         this.updateItem();
-        console.log('componentDidMount 1')
     }
 
-    // componentDidUpdate(prevProps, prevState, snapshot) {
-    //     if (this.props.itemId !== prevProps.itemId) {
-    //         this.updateItem();
-    //     }
-    // }
-
-    componentWillUnmount() {
-        console.log('componentWillUnmount componentWillUnmount componentWillUnmount componentWillUnmount')
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.itemId !== prevProps.itemId) {
+            this.updateItem();
+        }
     }
 
     updateItem() {
-        console.log('updateItem 2')
         const { itemId, getData, getImageUrl } = this.props;
         if (!itemId) {
             return;
@@ -47,7 +41,6 @@ export default class ItemDetails extends Component {
 
         getData(itemId)
             .then((item) => {
-                console.log(item, 3, 'item')
                 this.setState({
                     item: item,
                     image: getImageUrl(item)
