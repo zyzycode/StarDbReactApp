@@ -15,7 +15,6 @@ export {
     Record
 };
 
-
 export default class ItemDetails extends Component {
 
     state = {
@@ -27,8 +26,11 @@ export default class ItemDetails extends Component {
         this.updateItem();
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.itemId !== prevProps.itemId) {
+    componentDidUpdate(prevProps) {
+        console.log('componentDidUpdate', this.props.itemId)
+        if (this.props.itemId !== prevProps.itemId ||
+            this.props.getData !== prevProps.getData ||
+            this.props.getImageUrl !== prevProps.getImageUrl) {
             this.updateItem();
         }
     }
@@ -36,13 +38,14 @@ export default class ItemDetails extends Component {
     updateItem() {
         const { itemId, getData, getImageUrl } = this.props;
         if (!itemId) {
+            console.log('!itemId')
             return;
         }
 
         getData(itemId)
             .then((item) => {
                 this.setState({
-                    item: item,
+                    item,
                     image: getImageUrl(item)
                 });
             });
@@ -51,10 +54,11 @@ export default class ItemDetails extends Component {
     render() {
 
         const { item, image } = this.state;
-
         if (!item) {
             return <span>Select a item from a list</span>;
         }
+
+        const { name } = item;
 
         return (
             <div className="item-details card">
@@ -63,7 +67,7 @@ export default class ItemDetails extends Component {
                      alt="item"/>
 
                 <div className="card-body">
-                    <h4>{item.name}</h4>
+                    <h4>{name}</h4>
                     <ul className="list-group list-group-flush">
                         {
                             React.Children.map(this.props.children, (child) => {
