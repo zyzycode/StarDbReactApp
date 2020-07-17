@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Spinner from '../spinner';
 import ErrorIndicator from "../error-indicator";
-// import ErrorIndicator from '../error-indicator';
+
 
 const withData = (View) => {
   return class extends Component {
@@ -20,14 +20,18 @@ const withData = (View) => {
     }
 
     componentDidMount() {
+      console.log('componentDidMount WITH_DATA')
       this.update()
     }
 
     update(){
+      console.log('UPDATE WITH_DATA')
       this.setState({
         loading: true,
         error: false
       })
+      console.log(this.props.getData, 'this.props.getData')
+      console.log(this.props.getData(), 'this.props.getData()')
       this.props.getData()
           .then((data) => {
             this.setState({
@@ -45,6 +49,7 @@ const withData = (View) => {
 
     render() {
       const { data, loading, error } = this.state;
+      console.log(data, 'withData render()')
 
       if (loading) {
         return <Spinner />;

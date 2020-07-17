@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import './app.css';
+import './bootstrap.min.css'
 
 import Header from '../header';
 import RandomPlanet from '../random-planet';
@@ -17,7 +18,7 @@ import StarshipPage from "../pages/starship-page";
 export default class App extends Component {
 
     state = {
-        swapiService: new SwapiService(),
+        swapiService: new DummySwapiService(),
     };
 
     onServiceChange = () => {
@@ -43,9 +44,9 @@ export default class App extends Component {
 
                         <PeoplePage />
 
-                        <PlanetsPage />
+                        {/*<PlanetsPage />*/}
 
-                        <StarshipPage />
+                        {/*<StarshipPage />*/}
 
                     </div>
                 </SwapiServiceProvider>
