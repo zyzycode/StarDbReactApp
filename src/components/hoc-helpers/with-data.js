@@ -9,7 +9,7 @@ const withData = (View) => {
 
     state = {
       data: null,
-      loading: false,
+      loading: true,
       error: false
     };
 
@@ -17,21 +17,18 @@ const withData = (View) => {
       if(this.props.getData !== prevProps.getData){
         this.update()
       }
-    }
+    };
 
     componentDidMount() {
-      console.log('componentDidMount WITH_DATA')
       this.update()
-    }
+    };
 
     update(){
-      console.log('UPDATE WITH_DATA')
       this.setState({
         loading: true,
         error: false
-      })
-      console.log(this.props.getData, 'this.props.getData')
-      console.log(this.props.getData(), 'this.props.getData()')
+      });
+
       this.props.getData()
           .then((data) => {
             this.setState({
@@ -49,7 +46,6 @@ const withData = (View) => {
 
     render() {
       const { data, loading, error } = this.state;
-      console.log(data, 'withData render()')
 
       if (loading) {
         return <Spinner />;
