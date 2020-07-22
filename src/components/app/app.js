@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { BrowserRouter, Route } from "react-router-dom";
 
 import './app.css';
 
@@ -13,6 +14,7 @@ import DummySwapiService from "../../services/dummy-swapi-service";
 import PeoplePage from "../pages/people-page";
 import PlanetsPage from "../pages/planets-page";
 import StarshipPage from "../pages/starship-page";
+import StarshipDetails from "../sw-components/starship-details";
 
 export default class App extends Component {
 
@@ -35,19 +37,29 @@ export default class App extends Component {
         return (
             <ErrorBoundry>
                 <SwapiServiceProvider value={this.state.swapiService}>
-                    <div className="stardb-app app">
+                    <BrowserRouter>
+                        <div className="stardb-app app">
 
-                        <Header onServiceChange={this.onServiceChange}/>
+                            <Header onServiceChange={this.onServiceChange}/>
+                            <RandomPlanet />
 
-                        <RandomPlanet />
+                            <Route path="/"
+                                   exact={true}
+                                   render={()=> <h2>Welcome</h2>} />
 
-                        <PeoplePage />
+                            <Route path="/people/:id?" component={PeoplePage} />
+                            <Route path="/planets" component={PlanetsPage} />
+                            <Route path="/starship" exact={true}
+                                   component={StarshipPage} />
+                            <Route path="/starship/:id"
+                                   render={({match, location, history})=> {
+                                       const {id} = match.params;
+                                       return <StarshipDetails itemId={id} />
+                                   }}
+                            />
 
-                        <PlanetsPage />
-
-                        <StarshipPage />
-
-                    </div>
+                        </div>
+                    </BrowserRouter>
                 </SwapiServiceProvider>
             </ErrorBoundry>
         );
